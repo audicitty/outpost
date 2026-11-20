@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { Suspense } from "react";
 import { Bricolage_Grotesque, Geist, Geist_Mono } from "next/font/google";
 import { ClerkProvider } from "@clerk/nextjs";
 import { dark } from "@clerk/ui/themes";
@@ -62,7 +63,9 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         <body className="min-h-full flex flex-col">
           <TooltipProvider>
             <UpgradeDialogProvider>
-              <AppShell>{children}</AppShell>
+              <Suspense fallback={<div className="min-h-full" />}>
+                <AppShell>{children}</AppShell>
+              </Suspense>
             </UpgradeDialogProvider>
           </TooltipProvider>
           <Toaster richColors />
